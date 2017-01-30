@@ -17,5 +17,7 @@ class ExitCommand implements Command
         String exit = ConsoleHelper.readString();
         if (exit.equalsIgnoreCase(res.getString("yes")))
             ConsoleHelper.writeMessage(res.getString("thank.message"));
+        else if (exit.equalsIgnoreCase("n")) CashMachine.main(new String[0]);
+        else execute();
     }
 }
