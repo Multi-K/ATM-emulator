@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 class DepositCommand implements Command {
     private ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "deposit_en");
     public void execute() throws InterruptOperationException {
-        ConsoleHelper.writeMessage(res.getString("before"));
         String code = ConsoleHelper.askCurrencyCode();
         String[] twoDigits = ConsoleHelper.getValidTwoDigits(code);
         CurrencyManipulator manip = CurrencyManipulatorFactory.getManipulatorByCurrencyCode(code);
