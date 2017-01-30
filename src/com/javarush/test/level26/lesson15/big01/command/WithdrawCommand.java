@@ -17,18 +17,18 @@ class WithdrawCommand implements Command
 {
     private ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "withdraw_en");
     public void execute() throws InterruptOperationException {
-        String val = ConsoleHelper.askCurrencyCode();
-        CurrencyManipulator manip = CurrencyManipulatorFactory.getManipulatorByCurrencyCode(val);
+        String code = ConsoleHelper.askCurrencyCode();
+        CurrencyManipulator cm = CurrencyManipulatorFactory.getManipulatorByCurrencyCode(code);
         ConsoleHelper.writeMessage(res.getString("specify.amount"));
         String money;
         do {
             money = ConsoleHelper.readString();
-            if (money.matches("[1-9][\\d]*")) {
-                if (manip.isAmountAvailable(Integer.parseInt(money))) {
+            if (money.matches("[1-9]\\d*")) {
+                if (cm.isAmountAvailable(Integer.parseInt(money))) {
                     try {
-                        for (Map.Entry<Integer, Integer> it : manip.withdrawAmount(Integer.parseInt(money)).entrySet())
+                        for (Map.Entry<Integer, Integer> it : cm.withdrawAmount(Integer.parseInt(money)).entrySet())
                         ConsoleHelper.writeMessage("\t" + it.getKey() + " - " + it.getValue());
-                        ConsoleHelper.writeMessage(String.format(res.getString("success.format"), Integer.parseInt(money), val));
+                        ConsoleHelper.writeMessage(String.format(res.getString("success.format"), Integer.parseInt(money), code));
                         break;
                     } catch (NotEnoughMoneyException e) {
                         ConsoleHelper.writeMessage(res.getString("exact.amount.not.available"));

@@ -14,11 +14,11 @@ class InfoCommand implements Command
 {
     private ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "info_en");
     public void execute() {
-        for (CurrencyManipulator CM : CurrencyManipulatorFactory.getAllCurrencyManipulators()) {
-            if (!CM.hasMoney())
+        for (CurrencyManipulator cm : CurrencyManipulatorFactory.getAllCurrencyManipulators()) {
+            if (!cm.hasMoney())
                 ConsoleHelper.writeMessage(res.getString(res.getString("no.money")));
             else
-            ConsoleHelper.writeMessage(res.containsKey("before") + " " +CM.getCurrencyCode() + " - " + CM.getTotalAmount());
+            ConsoleHelper.writeMessage(res.containsKey("before") + " " +cm.getCurrencyCode() + " - " + cm.getTotalAmount());
         }
     }
 }

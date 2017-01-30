@@ -17,35 +17,35 @@ public class ConsoleHelper
 
     public static String askCurrencyCode() throws InterruptOperationException {
         writeMessage(res.getString("choose.currency.code"));
-        String val = readString();
-        if (!val.matches("[a-zA-Z]{3}"))
+        String code = readString();
+        if (!code.matches("[a-zA-Z]{3}"))
         {
             writeMessage(res.getString("invalid.data"));
             return askCurrencyCode();
         }
-        return val.toUpperCase();
+        return code.toUpperCase();
     }
 
-    public static String[] getValidTwoDigits(String currenceCode) throws InterruptOperationException {
+    public static String[] getValidTwoDigits(String currencyCode) throws InterruptOperationException {
         writeMessage(res.getString("choose.denomination.and.count.format"));
-        String[] first = readString().split(" ");
-        if (first[0].matches("[^\\d]+") || first[1].matches("[^\\d]+")) {
+        String[] twoDigits = readString().split(" ");
+        if (twoDigits[0].matches("[^\\d]+") || twoDigits[1].matches("[^\\d]+")) {
             writeMessage(res.getString("invalid.data"));
-            return getValidTwoDigits(currenceCode);
+            return getValidTwoDigits(currencyCode);
         }
-        return first;
+        return twoDigits;
     }
 
     public static Operation askOperation() throws InterruptOperationException {
-        System.out.println(res.getString("choose.operation"));
+        writeMessage(res.getString("choose.operation"));
         int operation = Integer.parseInt(readString());
-        Operation op = null;
+        Operation oper = null;
         try {
-            op = Operation.getAllowableOperationByOrdinal(operation);
+            oper = Operation.getAllowableOperationByOrdinal(operation);
         } catch (Exception e) {
             askOperation();
         }
-        return op;
+        return oper;
     }
 
     public static void printExitMessage() {
@@ -57,13 +57,13 @@ public class ConsoleHelper
     }
 
     public static String readString() throws InterruptOperationException {
-        String a = "";
+        String string = "";
         try {
-            a = in.readLine();
+            string = in.readLine();
         } catch (IOException e) {}
-        if (a.equalsIgnoreCase(res.getString("operation.EXIT")))
+        if (string.equalsIgnoreCase(res.getString("operation.EXIT")))
             throw new InterruptOperationException();
 
-        return a;
+        return string;
     }
 }

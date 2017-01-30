@@ -15,10 +15,10 @@ class DepositCommand implements Command {
     private ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "deposit_en");
     public void execute() throws InterruptOperationException {
         ConsoleHelper.writeMessage(res.getString("before"));
-        String newVal = ConsoleHelper.askCurrencyCode();
-        String[] denon = ConsoleHelper.getValidTwoDigits(newVal);
-        CurrencyManipulator manip = CurrencyManipulatorFactory.getManipulatorByCurrencyCode(newVal);
-        manip.addAmount(new Integer(denon[0]), new Integer(denon[1]));
+        String code = ConsoleHelper.askCurrencyCode();
+        String[] twoDigits = ConsoleHelper.getValidTwoDigits(code);
+        CurrencyManipulator manip = CurrencyManipulatorFactory.getManipulatorByCurrencyCode(code);
+        manip.addAmount(new Integer(twoDigits[0]), new Integer(twoDigits[1]));
         ConsoleHelper.writeMessage(res.getString("success.format"));
     }
 }

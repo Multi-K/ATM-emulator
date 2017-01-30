@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
  */
 class ExitCommand implements Command
 {
-    private ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "resources.exit_en");
+    private ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "exit_en");
     public void execute() throws InterruptOperationException {
         ConsoleHelper.writeMessage(res.getString("exit.question.y.n"));
         if (ConsoleHelper.readString().equalsIgnoreCase(res.getString("yes")))

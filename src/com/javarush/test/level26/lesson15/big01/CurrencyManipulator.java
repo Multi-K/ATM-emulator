@@ -45,28 +45,28 @@ public class CurrencyManipulator {
     }
 
     public Map<Integer, Integer> withdrawAmount(int expectedAmount) throws NotEnoughMoneyException {
-        Set<Integer> set = new TreeSet<Integer>(Collections.<Integer>reverseOrder());
-        Map<Integer, Integer> map = new LinkedHashMap<Integer, Integer>();
-        set.addAll(denominations.keySet());
-        for (Integer s : set) {
-            while (expectedAmount >= s) {
-                expectedAmount -= s;
-                if (map.containsKey(s))
-                    map.put(s, map.get(s)+1);
+        Set<Integer> keyset = new TreeSet<Integer>(Collections.<Integer>reverseOrder());
+        Map<Integer, Integer> amount = new LinkedHashMap<Integer, Integer>();
+        keyset.addAll(denominations.keySet());
+        for (Integer denomination : keyset) {
+            while (expectedAmount >= denomination) {
+                expectedAmount -= denomination;
+                if (amount.containsKey(denomination))
+                    amount.put(denomination, amount.get(denomination)+1);
                 else
-                    map.put(s, 1);
-                if (map.get(s).equals(denominations.get(s)))
+                    amount.put(denomination, 1);
+                if (amount.get(denomination).equals(denominations.get(denomination)))
                     break;
             }
         }
         if (expectedAmount != 0)
             throw new NotEnoughMoneyException();
-        for (Map.Entry<Integer, Integer> it : map.entrySet())
+        for (Map.Entry<Integer, Integer> it : amount.entrySet())
             if (denominations.get(it.getKey()).equals(it.getValue()))
                 denominations.remove(it.getKey());
             else
                 denominations.put(it.getKey(), denominations.get(it.getKey())-it.getValue());
-        return map;
+        return amount;
     }
 
     @Override
