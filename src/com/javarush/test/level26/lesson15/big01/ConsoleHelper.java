@@ -27,10 +27,17 @@ public class ConsoleHelper
     }
 
     public static String[] getValidTwoDigits(String currencyCode) throws InterruptOperationException {
-        writeMessage(res.getString("choose.denomination.and.count.format"));
+        writeMessage(String.format(res.getString("choose.denomination.and.count.format"), currencyCode));
         String[] twoDigits = readString().split(" ");
-        if (twoDigits[0].matches("[^\\d]+") || twoDigits[1].matches("[^\\d]+")) {
-            writeMessage(res.getString("invalid.data"));
+        try
+        {
+            if (twoDigits[0].matches("[^\\d]+") || twoDigits[1].matches("[^\\d]+"))
+            {
+                writeMessage(res.getString("invalid.data"));
+                return getValidTwoDigits(currencyCode);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ConsoleHelper.writeMessage(res.getString("invalid.data"));
             return getValidTwoDigits(currencyCode);
         }
         return twoDigits;
@@ -38,10 +45,15 @@ public class ConsoleHelper
 
     public static Operation askOperation() throws InterruptOperationException {
         writeMessage(res.getString("choose.operation"));
-        int operation = Integer.parseInt(readString());
+        String operation = readString();
+        if (!operation.matches("[\\d]")) {
+            writeMessage(res.getString("invalid.data"));
+            return askOperation();
+        }
+        int numberOfOperation = Integer.parseInt(operation);
         Operation oper = null;
         try {
-            oper = Operation.getAllowableOperationByOrdinal(operation);
+            oper = Operation.getAllowableOperationByOrdinal(numberOfOperation);
         } catch (Exception e) {
             askOperation();
         }

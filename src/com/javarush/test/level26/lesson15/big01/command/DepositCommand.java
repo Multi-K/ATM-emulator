@@ -19,6 +19,6 @@ class DepositCommand implements Command {
         String[] twoDigits = ConsoleHelper.getValidTwoDigits(code);
         CurrencyManipulator manip = CurrencyManipulatorFactory.getManipulatorByCurrencyCode(code);
         manip.addAmount(new Integer(twoDigits[0]), new Integer(twoDigits[1]));
-        ConsoleHelper.writeMessage(res.getString("success.format"));
+        ConsoleHelper.writeMessage(String.format(res.getString("success.format"), Integer.parseInt(twoDigits[0])*Integer.parseInt(twoDigits[1]), code));
     }
 }

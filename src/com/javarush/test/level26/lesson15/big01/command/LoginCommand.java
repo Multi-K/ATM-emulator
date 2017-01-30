@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
  */
 public class LoginCommand implements Command {
     private ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "login_en");
-   private ResourceBundle validCreditCards = ResourceBundle.getBundle("com.javarush.test.level26.lesson15.big01.resources.verifiedCards");
+   private ResourceBundle validCreditCards = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "verifiedCards");
     public void execute() throws InterruptOperationException {
         String cardNumber, pin;
         while (true) {
@@ -24,7 +24,7 @@ public class LoginCommand implements Command {
                     break;
                 }
             }
-            ConsoleHelper.writeMessage(res.getString(String.format(res.getString("success.verified.format"), cardNumber)));
+            ConsoleHelper.writeMessage(String.format(res.getString("not.verified.format"), cardNumber));
             ConsoleHelper.writeMessage(res.getString("try.again.or.exit"));
         }
     }

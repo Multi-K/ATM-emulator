@@ -14,7 +14,8 @@ class ExitCommand implements Command
     private ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "exit_en");
     public void execute() throws InterruptOperationException {
         ConsoleHelper.writeMessage(res.getString("exit.question.y.n"));
-        if (ConsoleHelper.readString().equalsIgnoreCase(res.getString("yes")))
+        String exit = ConsoleHelper.readString();
+        if (exit.equalsIgnoreCase(res.getString("yes")))
             ConsoleHelper.writeMessage(res.getString("thank.message"));
     }
 }

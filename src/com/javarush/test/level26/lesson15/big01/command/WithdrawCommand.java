@@ -19,6 +19,10 @@ class WithdrawCommand implements Command
     public void execute() throws InterruptOperationException {
         String code = ConsoleHelper.askCurrencyCode();
         CurrencyManipulator cm = CurrencyManipulatorFactory.getManipulatorByCurrencyCode(code);
+        if (!cm.hasMoney()) {
+            ConsoleHelper.writeMessage("No money available");
+            return;
+        }
         ConsoleHelper.writeMessage(res.getString("specify.amount"));
         String money;
         do {
@@ -32,6 +36,7 @@ class WithdrawCommand implements Command
                         break;
                     } catch (NotEnoughMoneyException e) {
                         ConsoleHelper.writeMessage(res.getString("exact.amount.not.available"));
+                        ConsoleHelper.writeMessage(res.getString("specify.amount"));
                     }
                 }
 
