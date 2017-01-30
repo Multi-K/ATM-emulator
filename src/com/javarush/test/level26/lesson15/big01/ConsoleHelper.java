@@ -45,6 +45,10 @@ public class ConsoleHelper
 
     public static Operation askOperation() throws InterruptOperationException {
         writeMessage(res.getString("choose.operation"));
+        writeMessage(res.getString("operation.INFO") + " : 1");
+        writeMessage(res.getString("operation.DEPOSIT") + " : 2");
+        writeMessage(res.getString("operation.WITHDRAW") + " : 3");
+        writeMessage(res.getString("operation.EXIT") + " : 4");
         String operation = readString();
         if (!operation.matches("[\\d]")) {
             writeMessage(res.getString("invalid.data"));
